@@ -32,4 +32,8 @@ var lightbox = new SimpleLightbox('.gallery a', {
     captionPosition: 'bottom',
 });
 
+lightbox.on('show.simplelightbox', function () {
+	evt.preventDefault();
+});
+
 console.log(galleryItems);
