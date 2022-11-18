@@ -3,37 +3,28 @@ import throttle from 'lodash.throttle'
 
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
-
-const savedDuration = localStorage.getItem("videoplayer-current-time");
-console.log(savedDuration);
+const STORAGE_KEY = "videoplayer-current-time";
 
 player.on('timeupdate', throttle(function (data) {
-    const durationData = data.seconds;
-    localStorage.setItem('videoplayer-current-time', JSON.stringify(data.seconds));
+    localStorage.setItem(STORAGE_KEY, data.seconds);
 }, 1000));
 
-player.getVideoTitle().then(function(title) {
-    console.log('title:', title);
-});
+const savedTime = localStorage.getItem(STORAGE_KEY);
 
-player.setCurrentTime(savedDuration).then(function (seconds) {}
-).catch(function(error) {
-    switch (error.name) {
-        case 'RangeError':
-            // the time was less than 0 or greater than the video’s duration
-            break;
+if (savedTime) {
+    player.setCurrentTime(savedTime).then(function (seconds) { }
+    ).catch(function (error) {
+        switch (error.name) {
+            case 'RangeError':
+                // the time was less than 0 or greater than the video’s duration
+                break;
 
-        default:
-            // some other error occurred
-            break;
-    }
-});
-player.play();
+            default:
+                // some other error occurred
+                break;
+        }
+    });
+    localStorage.removeItem(STORAGE_KEY);
+}
 
-localStorage.removeItem('videoplayer-current-time');
-console.log(localStorage);
-    
-var callback = function () {
-    localStorage.removeItem('videoplayer-current-time');
-};
-player.off('ended', callback);
+
