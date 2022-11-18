@@ -16,9 +16,7 @@ player.getVideoTitle().then(function(title) {
     console.log('title:', title);
 });
 
-player.setCurrentTime(savedDuration).then(function (seconds) {
-    localStorage.removeItem('videoplayer-current-time');
-}
+player.setCurrentTime(savedDuration).then(function (seconds) {}
 ).catch(function(error) {
     switch (error.name) {
         case 'RangeError':
@@ -30,8 +28,11 @@ player.setCurrentTime(savedDuration).then(function (seconds) {
             break;
     }
 });
+player.play();
 
-
+localStorage.removeItem('videoplayer-current-time');
+console.log(localStorage);
+    
 var callback = function () {
     localStorage.removeItem('videoplayer-current-time');
 };
