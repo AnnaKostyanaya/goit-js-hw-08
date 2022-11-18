@@ -24,7 +24,6 @@ const itemMarkup = createGalleryItemMarkup(galleryItems);
 
 itemContainer.insertAdjacentHTML('beforeend', itemMarkup);
 
-console.log(galleryItems);
 
 var lightbox = new SimpleLightbox('.gallery a', { 
     captionsData: 'alt',
@@ -32,8 +31,5 @@ var lightbox = new SimpleLightbox('.gallery a', {
     captionPosition: 'bottom',
 });
 
-lightbox.on('show.simplelightbox', function () {
-	evt.preventDefault();
-});
 
 console.log(galleryItems);
